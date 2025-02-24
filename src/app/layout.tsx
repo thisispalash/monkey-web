@@ -27,9 +27,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <link rel="icon" href="/circus-monkey.svg" />
       <body
         className={`
           ${syneMono.variable}
+          ${monofett.variable}
           antialiased
           font-default
         `}
