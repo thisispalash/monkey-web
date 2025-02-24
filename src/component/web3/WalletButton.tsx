@@ -1,7 +1,14 @@
-import { modal } from '@/lib/web3/appkit';
+'use client';
 
 export default function WalletButton() {
-  // @ts-expect-error msg
-  return <appkit-button />;
+
+  return (
+    // @ts-expect-error msg
+    <appkit-button 
+      balance='hide'
+      label='Sign in'
+      loadingLabel='Modal Open'
+    />
+  );
 
 }

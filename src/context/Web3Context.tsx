@@ -28,9 +28,28 @@ export const modal = createAppKit({
   networks,
   defaultNetwork: rsktestnet,
   metadata: metadata,
+  enableWalletConnect: false,
   features: {
-    analytics: true // Optional - defaults to your Cloud configuration
-  }
+    analytics: true,
+    swaps: false,
+    connectMethodsOrder: ['wallet', 'social', 'email'],
+  },
+  includeWalletIds: [
+    'c57ca95b47569778a828d19178114f4db188b89b763c899ba0be274e97267d96', // MetaMask
+    '19177a98252e07ddfc9af2083ba8e07ef627cb6103467ffebb3f8f4205fd7927', // Ledger
+    'fd20dc426fb37566d803205b19bbc1d4096b248ac04548e3cfb6b3a38bd033aa', // Coinbase
+  ],
+  featuredWalletIds: [
+    'c57ca95b47569778a828d19178114f4db188b89b763c899ba0be274e97267d96', // MetaMask
+  ],
+  allWallets: 'ONLY_MOBILE',
+  themeMode: 'light',
+  themeVariables: {
+    '--w3m-font-family': 'var(--font-default)',
+    '--w3m-accent': 'var(--foreground)',
+    '--w3m-color-mix': 'var(--background)',
+    '--w3m-color-mix-strength': 100
+  },
 });
 
 // Set up queryClient
