@@ -3,8 +3,10 @@
 import clsx from 'clsx';
 
 import { LoadingProvider, useLoading } from '@/context/LoadingContext';
+import Web3Provider from '@/context/Web3Context';
 
 import Loader from '@/component/Loader';
+import WalletButton from '@/component/web3/WalletButton';
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
 
@@ -21,12 +23,15 @@ function ClientLayoutContent({ children }: { children: React.ReactNode }) {
   const { isLoading } = useLoading();
 
   return (
-    <main className={clsx(
-      'h-screen w-full p-6',
-      'transition-opacity duration-1000',
-      isLoading ? 'opacity-0' : 'opacity-100',
-    )}>
-      {children}
-    </main>
+    <Web3Provider cookies={null}>
+      <main className={clsx(
+        'h-screen w-full p-6',
+        'transition-opacity duration-1000',
+        isLoading ? 'opacity-0' : 'opacity-100',
+      )}>
+        <WalletButton />
+        {children}
+      </main>
+    </Web3Provider>
   );
 }
