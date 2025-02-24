@@ -1,11 +1,25 @@
+'use client';
 
 import clsx from 'clsx';
+import { useEffect } from 'react';
+
+import { useLoading } from '@/context/LoadingContext';
 
 export default function Landing() {
+
+  const { setIsLoading } = useLoading();
+
+  useEffect(() => {
+
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2500);
+  }, [setIsLoading]);
+
   return (
-    <main
+    <div
       className={clsx(
-        'h-screen w-full p-6',
+        'h-full w-full',
         'flex flex-col items-center justify-center gap-6',
       )}
     >
@@ -18,6 +32,6 @@ export default function Landing() {
       <p className="text-2xl text-center">
         Monkey see, Monkey do!
       </p>
-    </main>
+    </div>
   );
 }

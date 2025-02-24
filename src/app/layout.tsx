@@ -3,6 +3,8 @@ import { Syne_Mono, Monofett } from 'next/font/google';
 
 import './globals.css';
 
+import ClientLayout from '@/component/ClientLayout';
+
 const syneMono = Syne_Mono({
   variable: '--font-syne-mono',
   subsets: ['latin'],
@@ -34,9 +36,12 @@ export default function RootLayout({
           ${monofett.variable}
           antialiased
           font-default
+          h-screen w-full
         `}
       >
-        {children}
+        <ClientLayout>
+          {children}
+        </ClientLayout>
       </body>
     </html>
   );
