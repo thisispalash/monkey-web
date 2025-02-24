@@ -1,6 +1,7 @@
 'use client';
 
 import clsx from 'clsx';
+import { usePathname } from 'next/navigation';
 
 import { LoadingProvider, useLoading } from '@/context/LoadingContext';
 import Web3Provider from '@/context/Web3Context';
@@ -21,6 +22,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
 function ClientLayoutContent({ children }: { children: React.ReactNode }) {
 
   const { isLoading } = useLoading();
+  const pathname = usePathname();
 
   return (
     <Web3Provider cookies={null}>
@@ -29,7 +31,14 @@ function ClientLayoutContent({ children }: { children: React.ReactNode }) {
         'transition-opacity duration-1000',
         isLoading ? 'opacity-0' : 'opacity-100',
       )}>
-        <WalletButton />
+        {pathname !== '/' && (
+          <div className={clsx(
+            'w-full',
+            'flex items-center justify-end',
+          )}>
+            <WalletButton />
+          </div>
+        )}
         {children}
       </main>
     </Web3Provider>

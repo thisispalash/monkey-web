@@ -2,19 +2,19 @@
 
 import clsx from 'clsx';
 import { useEffect } from 'react';
+import { useAppKitAccount } from '@reown/appkit/react';
 
 import { useLoading } from '@/context/LoadingContext';
+
+import EnterApp from '@/component/button/EnterApp';
+import WalletButton from '@/component/web3/WalletButton';
 
 export default function Landing() {
 
   const { setIsLoading } = useLoading();
+  const { isConnected } = useAppKitAccount();
 
-  useEffect(() => {
-
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2500);
-  }, [setIsLoading]);
+  useEffect(() => setIsLoading(false), [setIsLoading]);
 
   return (
     <div
@@ -32,6 +32,8 @@ export default function Landing() {
       <p className="text-2xl text-center">
         Monkey see, Monkey do!
       </p>
+
+      {isConnected ? <EnterApp /> : <WalletButton />}
     </div>
   );
 }
