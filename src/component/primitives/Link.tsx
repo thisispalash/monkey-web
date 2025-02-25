@@ -4,11 +4,12 @@ export interface LinkProps {
   href: string;
   onClick?: () => void;
   className?: string;
+  target?: string;
   children: React.ReactNode;
 }
 
 
-export default function Link({ href, children, onClick, className }: LinkProps) {
+export default function Link({ href, children, onClick, className, target }: LinkProps) {
 
   return (
     <a
@@ -20,6 +21,7 @@ export default function Link({ href, children, onClick, className }: LinkProps) 
         'transition-all duration-300 ease-in-out',
         className,
       )}
+      target={target ?? '_self'}
     >
       {children}
     </a>

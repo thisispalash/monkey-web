@@ -49,7 +49,11 @@ export default function Home() {
 
           <h1 className="text-2xl">Smart Account</h1>
 
-          <Link href={`https://explorer.testnet.rootstock.io/address/${sca}`} className="pl-3">
+          <Link 
+            href={`https://explorer.testnet.rootstock.io/address/${sca}`}
+            className="pl-3"
+            target="_blank"
+          >
             {formatAddress(sca)}
           </Link>
 
