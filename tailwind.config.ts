@@ -14,8 +14,8 @@ export default {
       },
       fontFamily: {
         default: ['var(--font-syne-mono)'], // used everywhere
-        code: 'monospace', // used in code blocks, when viewing recipes
-        'code-alt': ['var(--font-monofett)'], // used in code blocks, when creating recipes
+        code: 'monospace', // used for recipes
+        hover: ['var(--font-monofett)'], // used for hover text
       },
     },
   },
