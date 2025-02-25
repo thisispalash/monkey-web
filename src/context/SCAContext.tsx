@@ -16,6 +16,7 @@ interface SCAContextType {
   withdraw: () => void;
   deployMonkey: () => void;
   getBalances: () => void;
+  deployStacker: () => void;
 };
 
 const SCAContext = createContext<SCAContextType | undefined>(undefined);
@@ -26,11 +27,11 @@ export function SCAProvider({ children }: { children: React.ReactNode }) {
   const { writeContract, isSuccess } = useWriteContract();
   const [sca, setSCA] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (!isConnected) {
-      router.push('/');
-    }
-  }, [isConnected]);
+  // useEffect(() => {
+  //   if (!isConnected) {
+  //     router.push('/');
+  //   }
+  // }, [isConnected]);
 
   const getSCA = async () => {
     if (isConnected) {
@@ -62,6 +63,18 @@ export function SCAProvider({ children }: { children: React.ReactNode }) {
     });
   }
 
+  function deployStacker() {
+
+    writeContract({
+      address: process.env.NEXT_PUBLIC_RECIPE_FACTORY as `0x${string}`,
+      abi: abi.RecipeFactory,
+      functionName: 'createRecipe',
+      args: ['STACKER'],
+    });
+
+
+  }
+
   async function getBalances() {
     const balances = await envio.getBalances(sca as string);
     console.log('balances', balances);
@@ -73,7 +86,8 @@ export function SCAProvider({ children }: { children: React.ReactNode }) {
       deposit, 
       withdraw,
       deployMonkey,
-      getBalances
+      getBalances,
+      deployStacker
     }}>
       {children}
     </SCAContext.Provider>

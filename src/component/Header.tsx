@@ -22,7 +22,7 @@ export default function Header() {
         'flex flex-row items-center gap-6'
       )}>
         <Link href="#">market</Link>
-        <Link href="#">create</Link>
+        <Link href="/create">create</Link>
         <Link href="#">history</Link>
       </div>
 
