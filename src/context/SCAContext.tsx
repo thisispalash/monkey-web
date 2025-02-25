@@ -15,6 +15,7 @@ interface SCAContextType {
   deposit: () => void;
   withdraw: () => void;
   deployMonkey: () => void;
+  getBalances: () => void;
 };
 
 const SCAContext = createContext<SCAContextType | undefined>(undefined);
@@ -61,12 +62,18 @@ export function SCAProvider({ children }: { children: React.ReactNode }) {
     });
   }
 
+  async function getBalances() {
+    const balances = await envio.getBalances(sca as string);
+    console.log('balances', balances);
+  }
+
   return (
     <SCAContext.Provider value={{ 
       sca, 
       deposit, 
       withdraw,
-      deployMonkey
+      deployMonkey,
+      getBalances
     }}>
       {children}
     </SCAContext.Provider>

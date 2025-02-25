@@ -22,3 +22,11 @@ export async function findSCA(addr: string) {
 
   return data[0];
 }
+
+export async function getBalances(addr: string) {
+  const doc = `
+  query getBalances {
+    Monkey_Balances(where: {human: {_eq: "${addr}"}}) {
+  }
+  `;
+}
