@@ -28,6 +28,7 @@ function ClientLayoutContent({ children }: { children: React.ReactNode }) {
         'h-screen w-full p-6',
         'transition-opacity duration-1000',
         isLoading ? 'opacity-0' : 'opacity-100',
+        'flex flex-col gap-4'
       )}>
         <Header />
         {children}
