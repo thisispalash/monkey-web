@@ -1,15 +1,20 @@
 'use client';
 
 import { createContext, useContext, useState, useEffect } from 'react';
+import router from 'next/router';
 
+import { useWriteContract } from 'wagmi';
 import { useAppKitAccount } from '@reown/appkit/react';
 
+import * as abi from '@/abi/index';
 import * as envio from '@/lib/envio/index';
 
+
 interface SCAContextType {
-  sca: string;
+  sca: string | null;
   deposit: () => void;
   withdraw: () => void;
+  deployMonkey: () => void;
 };
 
 const SCAContext = createContext<SCAContextType | undefined>(undefined);
@@ -17,13 +22,20 @@ const SCAContext = createContext<SCAContextType | undefined>(undefined);
 export function SCAProvider({ children }: { children: React.ReactNode }) {
 
   const { address, isConnected } = useAppKitAccount();
+  const { writeContract, isSuccess } = useWriteContract();
+  const [sca, setSCA] = useState<string | null>(null);
 
-  const [sca, setSCA] = useState('0x96e03e38aD4B5EF728f4C5F305eddBB509B652d0');
+  useEffect(() => {
+    if (!isConnected) {
+      router.push('/');
+    }
+  }, [isConnected]);
 
   const getSCA = async () => {
     if (isConnected) {
       const monkey = await envio.findSCA(address as string);
-      console.log(monkey);
+      console.log('monkey', monkey);
+      setSCA(monkey.monkey || null);
     }
   }
 
@@ -40,8 +52,22 @@ export function SCAProvider({ children }: { children: React.ReactNode }) {
     console.log('withdraw');
   }
 
+  function deployMonkey() {
+    writeContract({
+      address: process.env.NEXT_PUBLIC_MONKEY_FACTORY as `0x${string}`,
+      abi: abi.MonkeyFactory,
+      functionName: 'createMonkey',
+      args: [address as string, '0000-0000-0000-0000-0000'],
+    });
+  }
+
   return (
-    <SCAContext.Provider value={{ sca, deposit, withdraw }}>
+    <SCAContext.Provider value={{ 
+      sca, 
+      deposit, 
+      withdraw,
+      deployMonkey
+    }}>
       {children}
     </SCAContext.Provider>
   );

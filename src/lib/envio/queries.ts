@@ -1,4 +1,4 @@
-import { fetchGraphQL } from './util';
+import { fetchGraphQL,  } from './util';
 
 export async function findSCA(addr: string) {
   const doc = `
@@ -13,5 +13,12 @@ export async function findSCA(addr: string) {
   }
 `;
 
-  return await fetchGraphQL(doc, 'findSCA', {})
+  const res = await fetchGraphQL(doc, 'findSCA', {});
+  const data = res.data.MonkeyFactory_SpawnMonkey;
+
+  if (data.length === 0) {
+    return null;
+  }
+
+  return data[0];
 }
