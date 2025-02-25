@@ -1,6 +1,10 @@
 'use client';
 
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
+
+import { useAppKitAccount } from '@reown/appkit/react';
+
+import * as envio from '@/lib/envio/index';
 
 interface SCAContextType {
   sca: string;
@@ -11,7 +15,22 @@ interface SCAContextType {
 const SCAContext = createContext<SCAContextType | undefined>(undefined);
 
 export function SCAProvider({ children }: { children: React.ReactNode }) {
+
+  const { address, isConnected } = useAppKitAccount();
+
   const [sca, setSCA] = useState('0x96e03e38aD4B5EF728f4C5F305eddBB509B652d0');
+
+  const getSCA = async () => {
+    if (isConnected) {
+      const monkey = await envio.findSCA(address as string);
+      console.log(monkey);
+    }
+  }
+
+  useEffect(() => {
+    getSCA();
+  }, [])
+
 
   function deposit() {
     console.log('deposit');
